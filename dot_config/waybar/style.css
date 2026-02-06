@@ -1,0 +1,99 @@
+@define-color foreground #ffffff;
+@define-color foreground-inactive #aaaaaa;
+@define-color background #232323;
+@define-color background-active #606060;
+@define-color border-active #ffc400;
+@define-color border-inactive #606060;
+@define-color urgent #ff6700;
+
+* {
+    font-family: Mononoki Nerd Font;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+}
+
+#waybar {
+    color: @foreground;
+    background-color: @background;
+}
+
+#workspaces button {
+    border-right: 1px solid @border-inactive;
+    border-left: 1px solid @border-inactive;
+}
+
+#workspaces button.focused {
+    border-right: 1px solid @border-active;
+    border-left: 1px solid @border-active;
+}
+
+#workspaces button.urgent {
+    border-right: 1px solid @border-active;
+    border-left: 1px solid @border-active;
+    background-color: @urgent;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+}
+
+#custom-left-padding {
+    padding-left: 1em
+}
+
+#idle_inhibitor {
+    padding-left: 0.2em;
+    padding-right: 0.3em;
+    margin-right: -0.3em;
+}
+
+#idle_inhibitor.activated {
+    padding-left: 0.3em;
+    padding-right: 0.4em;
+    background-color: @background-active;
+
+}
+
+#temperature {
+    padding-right: 0.3em;
+    border-right: 1px solid @border-inactive;
+}
+
+#network {
+    padding-right: 1em;
+    padding-left: 0.3em;
+    border-right: 1px solid @border-inactive;
+    border-left: 1px solid @border-inactive;
+}
+
+#cpu,
+#memory,
+#wireplumber,
+#backlight,
+#bluetooth,
+#tray,
+#custom-power {
+    padding-right: 0.5em;
+    border-right: 1px solid @border-inactive;
+}
+#power-profiles-daemon {
+  padding-right: 0.3em;
+}
+
+#language {
+    padding-right: 0.3em;
+    border-right: 1px solid @border-inactive;
+}
+
+#battery {
+    padding-left: 0.2em;
+    padding-right: 0.5em;
+    border-right: 1px solid @border-inactive;
+}
+
+#battery.warning {
+    background: #ff8000
+}
+#battery.critical {
+    background: #ff0f0f
+}

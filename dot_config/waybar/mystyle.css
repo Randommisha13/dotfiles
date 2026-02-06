@@ -1,0 +1,61 @@
+* {
+	border: none;
+	border-radius: 0;
+	font-family: Mononoki Nerd Font;
+	font-size: 14px;
+	background: #232323;
+}
+
+window#waybar {
+	border: none;
+}
+
+tooltip {
+	border: 1px solid #ffc400;
+}
+
+tooltip label {
+	font-size: 14px;
+	color: white;
+}
+
+#workspaces button {
+	padding: 0 2px;
+	color: white;
+	border: 1px solid #505050;
+}
+
+#workspaces button.focused {
+	padding: 0 1px;
+	color: white;
+	border-left: 2px solid #ffc400;
+	border-right: 2px solid #ffc400;
+	border-bottom: 1px solid #ffc400;
+}
+
+#battery {
+	padding-left: 5px;
+	padding-right: 5px;
+	background: #404040
+}
+
+#battery.charging {
+	padding-left: 5px;
+	padding-right: 5px;
+	background: #707000
+}
+
+#battery.warning {
+	padding-left: 5px;
+	padding-right: 5px;
+	background: #ff8000
+}
+#battery.critical {
+	padding-left: 5px;
+	padding-right: 5px;
+	background: #ff0f0f
+}
+
+#clock.calendar {
+	font-size: 20px;
+}

@@ -1,0 +1,65 @@
+@define-color foreground #ffffff;
+@define-color foreground-inactive #aaaaaa;
+@define-color background #232323;
+@define-color background-active #606060;
+@define-color border-sleep #707070;
+@define-color border-inactive #606060;
+@define-color border-window #ffc400;
+
+* {
+	border-radius: 0px;
+}
+
+*:focus {
+    outline: 0;
+}
+
+window {
+	border: 1px solid @border-window;
+	background-color: @background;
+}
+
+#outer-box {
+    margin-bottom: 5px;
+}
+
+#inner-box {
+}
+
+#input {
+    margin-bottom: 5px;
+    border: 1px solid @border-window;
+    border-bottom: 1px solid @border-sleep;
+	background-color: @background;
+}
+
+#input:focus {
+    border: 0;
+    box-shadow: none;
+}
+
+#input:focused {
+    outline: 0;
+    border: 1px solid @border-window;
+}
+
+#text {
+	color: #ffffff;
+	font-family: Mononoki Nerd Font;
+	font-size: 14px;
+}
+
+#entry {
+	border-radius: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#entry:selected {
+    outline: none;
+	background-color: @background-active;
+}
+
+list {
+    background-color: @background;
+}

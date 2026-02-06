@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+export SDL_VIDEODRIVER=wayland
+export _JAVA_AWT_WM_NONREPARENTING=1
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_DESKTOP=sway
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+export WLR_RENDERER=vulkan
+dbus-update-activation-environment XDG_CURRENT_DESKTOP
+exec sway

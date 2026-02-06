@@ -1,0 +1,65 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Your preferred terminal emulator
+set $term kitty
+# Your preferred application launcher
+set $menu wofi --show drun
+set $menu_alt wofi --show run
+
+### Output configuration
+#
+# Wallpaper
+# output * bg #070707 solid_color
+output * bg ~/Pictures/Wallpapers/che-stallman2.png fill
+
+# Main output
+output "eDP-1" resolution 1920x1080@60Hz
+output "eDP-1" adaptive_sync on
+
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+exec swayidle -w \
+         timeout 300 'swaylock -f' \
+         timeout 330 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f'
+
+### Clipboard configuration
+exec wl-paste -t text --watch clipman store --no-persist --max-items=15
+
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    swaybar_command waybar
+}
+
+# Notifications daemon
+exec swaync
+
+# Magic
+exec dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec kdeconnectd -r
+# exec gnome-keyring-daemon --replace --daemonize
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Run autostart
+# exec dex -a
+
+include inputs.conf
+include keybinds.conf
+include style.conf
+include floating.conf

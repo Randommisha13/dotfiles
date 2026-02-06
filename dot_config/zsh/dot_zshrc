@@ -1,0 +1,60 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -e
+# End of lines configured by zsh-newuser-install
+
+fpath+=($ZDOTDIR/myfunctions/)
+
+# The following lines were added by compinstall
+zstyle :compinstall filename "$HOME/.config/zsh/.zshrc"
+
+autoload -Uz compinit promptinit
+# autoload -U colors && colors
+compinit
+promptinit
+# End of lines added by compinstall
+
+### Aliases
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+set_other_terminal_settings() {
+    ### PROMPT configuration
+    autoload -Uz vcs_info
+    precmd() { vcs_info }
+    zstyle ':vcs_info:*' enable git 
+    zstyle ':vcs_info:git:*' formats '(%b)'
+
+    setopt prompt_subst
+}
+
+case $TERM in 
+
+    xterm-kitty)
+        # oh-my-zsh configuration
+        export OMZSH="$HOME/.local/share/oh-my-zsh"
+        ZSH_THEME="not-random"
+        ZSH_CUSTOM="$ZDOTDIR/oh-my-zsh-custom"
+        plugins=(git)
+
+        if [[ -v DISTROBOX_ENTER_PATH ]]
+        then
+            ZSH_THEME="not-random-distrobox"
+        fi
+
+        source $OMZSH/oh-my-zsh.sh
+        # Runs fastfetch on shell startup, duh
+        fastfetch
+        ;;
+
+    *)
+        set_other_terminal_settings
+	    PROMPT=$'%F{green}%n@%m%F{white}:%F{yellow}%~ %F{blue}${vcs_info_msg_0_}%F{white}\n> '
+        ;;
+esac
+
+autoload bashcompinit
+bashcompinit
+source "$HOME/.local/share/bash-completion/completions/appman"

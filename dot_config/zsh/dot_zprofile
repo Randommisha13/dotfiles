@@ -1,0 +1,37 @@
+umask 0027
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_BIN_HOME="$HOME/.local/bin"
+
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export EDITOR=/usr/bin/vim
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export PATH="$XDG_BIN_HOME:$PATH"
+
+###              Homebrew environment variables               ###
+# output of  `/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh` #
+
+if [ -d "/home/linuxbrew/.linuxbrew"]
+then
+    export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
+    export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
+    export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew";
+    # fpath[1,0]="/home/linuxbrew/.linuxbrew/share/zsh/site-functions";
+    export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
+    [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}";
+    export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}";
+fi
+#                                                                #
+###             End Homebrew environment variables             ###
+
+## Create some directories in ${XDG_RUNTIME_DIR} for future use
+for USER_RUNTIME_DIR in "ssh-host-sockets"
+do
+    if [[ ! -d "${XDG_RUNTIME_DIR}/${USER_RUNTIME_DIR}" ]]
+    then
+        mkdir "${XDG_RUNTIME_DIR}/${USER_RUNTIME_DIR}"
+    fi
+done

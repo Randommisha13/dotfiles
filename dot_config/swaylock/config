@@ -1,0 +1,13 @@
+daemonize
+show-keyboard-layout
+indicator-caps-lock
+color=000000
+font=MononokiNerdFont
+indicator-radius=300
+indicator-thickness=30
+ring-color=ffc400
+key-hl-color=e31c79
+clock
+indicator
+timestr=%T
+datestr=%a %Y-%m-%d

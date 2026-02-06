@@ -1,0 +1,10 @@
+width=50%
+height=40%
+term=kitty
+matching=contains
+insensitive=true
+key_expand=Ctrl-Tab
+line_wrap=word
+gtk_dark=true
+allow_images=true
+image_size=16

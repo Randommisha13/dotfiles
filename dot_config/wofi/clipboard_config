@@ -1,0 +1,9 @@
+width=400
+height=430
+xoffset=1520
+yoffset=000
+prompt=clipboard
+matching=contains
+insensitive=true
+line_wrap=word
+gtk_dark=true
