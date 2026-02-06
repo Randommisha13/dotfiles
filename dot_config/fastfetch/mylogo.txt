@@ -1,0 +1,20 @@
+$1┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+$1┃                               ┃
+$1┃                               ┃
+$1┃                               ┃
+$1┃     $2Due to a new policy  $1     ┃
+$1┃     $2enacted in the kernel$1     ┃
+$1┃     $2any public mention   $1     ┃
+$1┃     $2of the name of the   $1     ┃
+$1┃     $2currently used Linux $1     ┃
+$1┃     $2distribution is      $1     ┃
+$1┃     $2strictly prohibited  $1     ┃
+$1┃     $2and will be punished $1     ┃
+$1┃     $2according to the     $1     ┃
+$1┃     $2article 6 section 9  $1     ┃
+$1┃     $2of the Linux kernel  $1     ┃
+$1┃     $2code                 $1     ┃
+$1┃                               ┃
+$1┃                               ┃
+$1┃                               ┃
+$1┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
