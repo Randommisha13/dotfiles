@@ -14,7 +14,7 @@ export PATH="$XDG_BIN_HOME:$PATH"
 ###              Homebrew environment variables               ###
 # output of  `/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh` #
 
-if [ -d "/home/linuxbrew/.linuxbrew" ]
+if [ -d "/home/linuxbrew/.linuxbrew" -a "$(basename ${SHELL})" == "zsh" ]
 then
     export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
     export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
