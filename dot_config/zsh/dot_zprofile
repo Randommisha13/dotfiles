@@ -9,6 +9,8 @@ export XDG_BIN_HOME="$HOME/.local/bin"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export EDITOR=/usr/bin/vim
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export TMUX_TMPDIR="$XDG_RUNTIME_DIR/tmux-tmpdir"
+
 export PATH="$XDG_BIN_HOME:$PATH"
 
 ###              Homebrew environment variables               ###
@@ -28,7 +30,7 @@ fi
 ###             End Homebrew environment variables             ###
 
 ## Create some directories in ${XDG_RUNTIME_DIR} for future use
-for USER_RUNTIME_DIR in "ssh-host-sockets"
+for USER_RUNTIME_DIR in "ssh-host-sockets" "tmux-tmpdir"
 do
     if [ ! -d "${XDG_RUNTIME_DIR}/${USER_RUNTIME_DIR}" ]
     then
