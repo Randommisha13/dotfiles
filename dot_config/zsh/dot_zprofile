@@ -2,20 +2,19 @@ umask 0027
 
 # XDG Base Directory Specification
 # I prefer to set default values explicitly
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_BIN_HOME="$HOME/.local/bin"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+export XDG_BIN_HOME="${HOME}/.local/bin"
 
 # zsh dotfile dir, storing everything under $XDG_CONFIG_HOME is a little dirty
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 # Other personal settings
 export EDITOR=/usr/bin/vim
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-export TMUX_TMPDIR="$XDG_RUNTIME_DIR/tmux-tmpdir"
-
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+export TMUX_TMPDIR="${XDG_RUNTIME_DIR}/tmux-tmpdir"
 
 ###              Homebrew environment variables               ###
 # output of  `/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh` #
@@ -42,4 +41,4 @@ do
 done
 
 # I'm setting $PATH last to potentially override anything just for myself
-export PATH="$XDG_BIN_HOME:$PATH"
+export PATH="${XDG_BIN_HOME}:${PATH}"
