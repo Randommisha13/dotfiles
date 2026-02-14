@@ -36,6 +36,7 @@ fi
 USER_RUNTIME_DIRS=(
     "ssh-host-sockets"
     "tmux-tmpdir"
+    "tmux-tmpdir-kitty"
 )
 for USER_DIR in "${USER_RUNTIME_DIRS[@]}"
 do
