@@ -1,0 +1,13 @@
+# This is Git's per-user configuration file.
+# vim: ts=4 sw=4 et
+
+[core]
+  editor = nvim
+
+[user]
+  name = {{ .git_name | quote }}
+  email = {{ .git_email | quote }}
+  signingkey = {{ .git_signingkey }}
+
+[commit]
+  gpgsign = true
