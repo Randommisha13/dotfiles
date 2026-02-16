@@ -35,7 +35,10 @@ set_kitty_settings() {
         export OMZSH="${HOME}/.local/share/oh-my-zsh"
         export ZSH_THEME="not-random"
         export ZSH_CUSTOM="${ZDOTDIR}/oh-my-zsh-custom"
-        export plugins=(git)
+        export plugins=(
+            "git"
+            "tmux"
+        )
 
         if [[ -v DISTROBOX_ENTER_PATH ]]
         then
