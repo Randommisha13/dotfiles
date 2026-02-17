@@ -2,12 +2,30 @@
 # vim: ts=4 sw=4 et
 
 [core]
-  editor = nvim
+  editor = "nvim"
+
+[commit]
+  gpgsign = true
 
 [user]
   name = {{ .git_name | quote }}
   email = {{ .git_email | quote }}
   signingkey = {{ .git_signingkey }}
 
-[commit]
-  gpgsign = true
+[diff]
+    tool = nvim
+
+[difftool]
+    prompt = false
+
+[difftool "nvim"]
+    cmd = "nvim -d $LOCAL $REMOTE"
+
+[merge]
+    tool = nvim
+
+[mergetool]
+    prompt = false
+
+[mergetool "nvim"]
+    cmd = "nvim $MERGED"
