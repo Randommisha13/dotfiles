@@ -1,0 +1,9 @@
+#==============================================
+# Basically only a check if we're within kitty
+#==============================================
+if [[ -n "${KITTY_PID}" ]]
+then 
+    source "${ZDOTDIR}/zsh_term_kitty"
+else
+    source "${ZDOTDIR}/zsh_term_other"
+fi
