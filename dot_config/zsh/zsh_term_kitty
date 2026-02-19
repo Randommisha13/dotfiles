@@ -2,7 +2,7 @@
 # oh-my-zsh configuration
 #==============================================
 
-export OMZSH="${HOME}/.local/share/oh-my-zsh"
+export OMZSH="${XDG_DATA_HOME}/oh-my-zsh"
 
 export ZSH_THEME="not-random"
 export ZSH_CUSTOM="${ZDOTDIR}/oh-my-zsh-custom"

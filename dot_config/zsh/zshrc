@@ -14,7 +14,7 @@ fpath+=("${ZDOTDIR}/myfunctions/")
 #==============================================
 # compinstall
 #==============================================
-zstyle :compinstall filename "${HOME}/.config/zsh/.zshrc"
+zstyle :compinstall filename "${XDG_CONFIG_HOME}/zsh/zshrc"
 
 autoload -Uz compinit promptinit
 # autoload -U colors && colors
@@ -48,4 +48,4 @@ esac
 #==============================================
 autoload bashcompinit
 bashcompinit
-source "${HOME}/.local/share/bash-completion/completions/appman"
+source "${XDG_DATA_HOME}/bash-completion/completions/appman"
