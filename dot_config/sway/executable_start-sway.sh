@@ -1,4 +1,7 @@
 #!/usr/bin/sh
+
+# This script was used when I didn't know about UWSM, I no longer use it
+
 export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
 export XDG_CURRENT_DESKTOP=sway

@@ -33,10 +33,6 @@ exec swayidle -w \
 ### Clipboard configuration
 exec wl-paste -t text --watch clipman store --no-persist --max-items=15
 
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
@@ -44,20 +40,14 @@ bar {
     swaybar_command waybar
 }
 
-# Notifications daemon
-exec swaync
+### Maybe I'm doing something wrong, but Sway does not export needed variables 
+exec uwsm finalize
 
-# Magic
-exec dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec kdeconnectd -r
-# exec gnome-keyring-daemon --replace --daemonize
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+### Systemd services specific to Sway
+exec systemctl --user start swaync.service
+exec systemctl --user start plasma-polkit-agent.service
 
-# Run autostart
-# exec dex -a
+# exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 include inputs.conf
 include keybinds.conf
