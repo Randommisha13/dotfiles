@@ -18,9 +18,13 @@ set $menu_alt wofi --show run
 # output * bg #070707 solid_color
 output * bg ~/Pictures/Wallpapers/che-stallman2.png fill
 
-# Main output
-output "eDP-1" resolution 1920x1080@60Hz
-output "eDP-1" adaptive_sync on
+{{ if eq .chezmoi.hostname "RandomLaptop" }}
+# RandomLaptop
+{{ template "sway/outputs-RandomLaptop.tmpl" }}
+{{ else if eq .chezmoi.hostname "RandomLaptop" }}
+# RandomPC
+{{ template "sway/outputs-RandomPC.tmpl" }}
+{{ end }}
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
