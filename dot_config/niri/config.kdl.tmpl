@@ -507,6 +507,10 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
+environment {
+    QT_QPA_PLATFORM_THEME "qt6ct"
+}
+
 // dankmaterialshell
 spawn-at-startup "systemctl" "--user" "start" "dms.service"
 include "dms/alttab.kdl"
