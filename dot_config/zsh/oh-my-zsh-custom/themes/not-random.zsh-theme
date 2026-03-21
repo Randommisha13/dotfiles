@@ -50,6 +50,11 @@ then
             dir_color=111
             dbox_color=111
             ;;
+        debian)
+            user_color=161
+            dir_color=161
+            dbox_color=161
+            ;;
         *)
             user_color=145
             dir_color=145
