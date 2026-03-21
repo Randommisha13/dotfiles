@@ -31,30 +31,62 @@ unset dependency dependency_problem DEPENDENCIES
 user_color=220
 dir_color=220
 git_branch_color=129
-line_color=236
+separator_color=236
 input_color=255
 error_color=94
-venv_color=127
+venv_color=203
+dbox_color=145
+
+if [[ -n "${CONTAINER_ID}" ]]
+then
+    case ${CONTAINER_ID} in 
+        ubuntu)
+            user_color=100
+            dir_color=100
+            dbox_color=100
+            ;;
+        fedora)
+            user_color=111
+            dir_color=111
+            dbox_color=111
+            ;;
+        *)
+            user_color=145
+            dir_color=145
+            dbox_color=145
+            ;;
+    esac
+fi
 
 local __user_seq="$(tput bold)$(tput setaf "${user_color}")"
 local __dir_seq="$(tput bold)$(tput setaf "${dir_color}")"
 local __git_branch_seq="$(tput bold)$(tput setaf "${git_branch_color}")"
 local __input_seq="$(tput bold)$(tput setaf "${input_color}")"
 local __error_seq="$(tput bold)$(tput setaf "${error_color}")"
-local __venv_seq="$(tput bold)$(tput setaf "${venv_color}")"
 
 local __reset_seq="$(tput sgr0)"
-local __carriage_return="$(printf -- '\r')"
 
-# For some reason setting line color through tput results in losing lines
-# when resizing terminal
-local __separator_seq="${FG[237]}"
+# For some parts of prompt setting color through tput results in weird
+# behavior
+local __venv_seq="${FG[${venv_color}]}"
+local __dbox_seq="${FG[${dbox_color}]}"
+local __separator_seq="${FG[${separator_color}]}"
+
 local __separator_character="─"
 # Uncomment the following line to hide the virtual environment name.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 __print_rprompt() {
-    echo -n ""
+    local rprompt=""
+    if [[ -n "${CONTAINER_ID}" ]]
+    then
+       local rprompt=" [ : %{${__dbox_seq}%}${CONTAINER_ID}%{${reset_color}%}]${rprompt}" 
+    fi
+    if [[ -n "${VIRTUAL_ENV_PROMPT}" ]]
+    then
+       local rprompt=" [󰌠 : %{${__venv_seq}%}${VIRTUAL_ENV_PROMPT}%{${reset_color}%}]${rprompt}" 
+    fi
+    echo -ne "${rprompt}"
 }
 
 # User details in bold
@@ -71,11 +103,11 @@ __get_git_prompt() {
 }
 local git_branch='%{${__git_branch_seq}%}$(__get_git_prompt)%{${__reset_seq}%}'
 
-PROMPT="${__separator_seq}\${(l.\$(tput cols)..${__separator_character}.)}%{$reset_color%}
+PROMPT="${__separator_seq}\${(l.\$(tput cols)..${__separator_character}.)}%{${reset_color}%}
 ${user}:${dir} ${git_branch}${__reset_seq}
 > "
 
-RPROMPT="%{$(echotc UP 1)%}$(__print_rprompt)%{$(echotc DOWN 1)%}"
+RPROMPT="%{$(echotc UP 1)%}\$(__print_rprompt)%{$(echotc DOWN 1)%}"
 
 # Unset variables that were consumed and are no longer needed
 unset user
@@ -84,10 +116,11 @@ unset git_branch
 unset user_color
 unset dir_color
 unset git_branch_color
-unset line_color
+unset separator_color
 unset input_color
 unset error_color
 unset venv_color
+unset dbox_color
 
 precmd()
 {
