@@ -16,7 +16,14 @@ export TIMER_THRESHOLD=1
 export TIMER_FORMAT='[%d]'
 
 export plugins=(
+    "docker"
+    "fzf"
     "git"
+    "kitty"
+    "podman"
+    "python"
+    "rsync"
+    "systemd"
     "timer"
     "tmux"
 )
