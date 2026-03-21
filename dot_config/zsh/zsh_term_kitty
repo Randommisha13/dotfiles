@@ -8,16 +8,18 @@ export ZSH_THEME="not-random"
 export ZSH_CUSTOM="${ZDOTDIR}/oh-my-zsh-custom"
 export ZSH_COMPDUMP="${XDG_CACHE_HOME}/zcompdump-${HOST}"
 
+#==============================================
+# oh-my-zsh module config
+#==============================================
+export TIMER_PRECISION=2
+export TIMER_THRESHOLD=1
+export TIMER_FORMAT='[%d]'
+
 export plugins=(
     "git"
+    "timer"
     "tmux"
 )
-
-# Theme with distrobox handling
-if [[ -v DISTROBOX_ENTER_PATH ]]
-then
-    export ZSH_THEME="not-random-distrobox"
-fi
 
 source "${OMZSH}/oh-my-zsh.sh"
 
