@@ -39,7 +39,6 @@ venv_color=127
 local __user_seq="$(tput bold)$(tput setaf "${user_color}")"
 local __dir_seq="$(tput bold)$(tput setaf "${dir_color}")"
 local __git_branch_seq="$(tput bold)$(tput setaf "${git_branch_color}")"
-local __line_seq="$(tput setaf "${line_color}")"
 local __input_seq="$(tput bold)$(tput setaf "${input_color}")"
 local __error_seq="$(tput bold)$(tput setaf "${error_color}")"
 local __venv_seq="$(tput bold)$(tput setaf "${venv_color}")"
@@ -47,13 +46,16 @@ local __venv_seq="$(tput bold)$(tput setaf "${venv_color}")"
 local __reset_seq="$(tput sgr0)"
 local __carriage_return="$(printf -- '\r')"
 
-local __line_character="─"
+# For some reason setting line color through tput results in losing lines
+# when resizing terminal
+local __separator_seq="${FG[237]}"
+local __separator_character="─"
 # Uncomment the following line to hide the virtual environment name.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# Number of columns to leave free for virtual environment name. You can set this
-# so that the dashes cover the width of the screen.
-# prompt_buffer=0
+__print_rprompt() {
+    echo -n ""
+}
 
 # User details in bold
 local user='%{${__user_seq}%}%n@%m%{${__reset_seq}%}'
@@ -69,42 +71,11 @@ __get_git_prompt() {
 }
 local git_branch='%{${__git_branch_seq}%}$(__get_git_prompt)%{${__reset_seq}%}'
 
-# Unlike original, this gets called every time we display prompt
-# Tries to detect changes in first line of prompt, if it is longer than
-# expected, corrects itself to fill all the remaining columns
-__print_separator() {
-    local line_width="$(tput cols)"
-
-    # printf prints pattern for every input string. In this case, '%.0s' causes
-    # printf to print 0 digits of the inputted number(s), effectively printing
-    # '-' $line_width times
-    local separator_line="$(printf -- "${__line_character}%.0s" $(seq "${line_width}"))"
-    echo -e "${__line_seq}${separator_line}${__reset_seq}"
-}
-
-__print_prompt() {
-    local screen_width="$(tput cols)"
-
-    local user="${__user_seq}%n@%m${__reset_seq}"
-    local dir="${__dir_seq}%~${__reset_seq}"
-    local git_branch="${__git_branch_seq}$(__get_git_prompt)${__reset_seq}"
-    local left_side="${user}:${dir} ${git_branch}"
-
-    if [[ -n "${VIRTUAL_ENV_PROMPT}" ]]
-    then
-        venv="${__venv_seq}[${VIRTUAL_ENV_PROMPT}]${__reset_seq}"
-    else
-        local venv=""
-    fi
-
-    right_side="${venv}"
-
-    printf -- "%*s\r%s\n> " "$(tput cols)" "${right_side}" "${left_side}"
-}
-
-# Refer: https://stackoverflow.com/questions/263890/how-do-i-find-the-width-height-of-a-terminal-window
-PROMPT="${user}:${dir} ${git_branch}${__reset_seq}
+PROMPT="${__separator_seq}\${(l.\$(tput cols)..${__separator_character}.)}%{$reset_color%}
+${user}:${dir} ${git_branch}${__reset_seq}
 > "
+
+RPROMPT="%{$(echotc UP 1)%}$(__print_rprompt)%{$(echotc DOWN 1)%}"
 
 # Unset variables that were consumed and are no longer needed
 unset user
@@ -128,8 +99,6 @@ precmd()
     then
         echo -e "${__error_seq}Exited with status ${last_cmd_status}${__reset_seq}"
     fi
-
-    __print_separator
 }
 
 # Resetting color to default white.
