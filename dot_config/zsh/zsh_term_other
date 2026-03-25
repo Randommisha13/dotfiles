@@ -8,4 +8,10 @@ zstyle ':vcs_info:git:*' formats '(%b)'
 
 setopt prompt_subst
 
-PROMPT=$'%F{green}%n@%m%F{white}:%F{yellow}%~ %F{blue}${vcs_info_msg_0_}%F{white}\n> '
+user_seq="$(tput bold)$(tput setaf 3)"
+dir_seq="$(tput bold)$(tput setaf 3)"
+git_seq="$(tput bold)$(tput setaf 13)"
+reset_seq="$(tput sgr0)"
+
+PROMPT="%{${user_seq}%}%n@%m%{${reset_seq}%}:%{${dir_seq}%}%~%{${reset_seq}%} %{${git_seq}%}\${vcs_info_msg_0_}%{${reset_seq}%}
+> "
