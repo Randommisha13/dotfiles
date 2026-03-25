@@ -1,0 +1,19 @@
+#==============================================
+# PROMPT configuration
+#==============================================
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:*' enable git 
+zstyle ':vcs_info:git:*' formats '(%b)'
+
+setopt prompt_subst
+
+user_seq="$(tput bold)$(tput setaf 2)"
+dir_seq="$(tput bold)$(tput setaf 2)"
+git_seq="$(tput bold)$(tput setaf 4)"
+reset_seq="$(tput sgr0)"
+
+PROMPT="%{${user_seq}%}%n@%m%{${reset_seq}%}:%{${dir_seq}%}%~%{${reset_seq}%} %{${git_seq}%}\${vcs_info_msg_0_}%{${reset_seq}%}
+> "
+
+unset user_seq dir_seq git_seq reset_seq

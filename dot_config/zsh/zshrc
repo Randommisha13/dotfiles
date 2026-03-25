@@ -37,6 +37,9 @@ case ${TERM} in
     tmux-256color)
         source "${ZDOTDIR}/zsh_term_tmux-256color"
         ;;
+    linux)
+        source "${ZDOTDIR}/zsh_term_linux"
+        ;;
 
     *)
         source "${ZDOTDIR}/zsh_term_other"
