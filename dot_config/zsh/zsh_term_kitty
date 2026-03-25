@@ -35,6 +35,7 @@ source "${OMZSH}/oh-my-zsh.sh"
 #==============================================
 
 export TMUX_TMPDIR="${XDG_RUNTIME_DIR}/tmux-tmpdir-kitty"
+export EDITOR="/usr/bin/nvim"
 
 #==============================================
 # Startup programs
