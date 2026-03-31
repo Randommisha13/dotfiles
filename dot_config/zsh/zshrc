@@ -1,3 +1,8 @@
+if [[ "${PROFILE_SOURCED}" != 1 ]]
+then
+    source "${HOME}/.config/zsh/zprofile"
+fi
+
 #==============================================
 # zsh-newuser-install
 #==============================================
@@ -29,7 +34,7 @@ source "${ZDOTDIR}/zsh_alias"
 #==============================================
 # Different options for different terminals
 #==============================================
-case ${TERM} in 
+case "${TERM}" in 
     xterm-kitty)
         source "${ZDOTDIR}/zsh_term_kitty"
         ;;

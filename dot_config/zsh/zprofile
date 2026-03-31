@@ -50,3 +50,5 @@ unset USER_DIR
 
 # I'm setting $PATH last to potentially override anything just for myself
 export PATH="${XDG_BIN_HOME}:${PATH}"
+
+export PROFILE_SOURCED=1
