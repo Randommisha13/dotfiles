@@ -12,9 +12,10 @@ export XDG_BIN_HOME="${HOME}/.local/bin"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 # Other personal settings
-export EDITOR=/usr/bin/vim
+export EDITOR="/usr/bin/vim"
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 export TMUX_TMPDIR="${XDG_RUNTIME_DIR}/tmux-tmpdir"
+export BC_ENV_ARGS="-lq ${XDG_CONFIG_HOME}/bcrc"
 
 ###              Homebrew environment variables               ###
 # output of  `/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh` #

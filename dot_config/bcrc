@@ -1,0 +1,305 @@
+### functions.bc
+# https://github.com/mikepierce/GNU-bc-Functions/blob/main/functions.bc
+
+################################################################################
+### Constants and Basic Functions
+
+pi = 4*a(1)
+ex = e(1)
+phi = (sqrt(5)+1)/2
+define sgn(x) { if(x>0) return 1; if(x<0) return -1; }
+define abs(x) { return sgn(x)*x }
+define heavyside(x) { return (x>0) }
+define max(x,y) { if(x>y) return x; return y}
+
+# Return the integer-part of a number (not the floor)
+define int(x) { auto s; s=scale; scale=0; x/=1; scale=s; return x; }
+
+# Return the fractional-part of a number
+define frac(x) { return x-int(x) }
+
+# Truncate (round down) at the nth decimal place
+define trunc(x,n) { auto s; s=scale; scale=n; x/=1; scale=s; return x; }
+
+# Return the integer-part of b modulo the integer-part of m
+define intmod(b,m) { auto s,a; s=scale; scale=0; a=(b/1)%(m/1); scale=s; return a; }
+
+# Return 1 if x is strictly within t of being a whole number
+define isnearlyintegral(x,t) { return (abs(frac(x)) < t) }
+
+################################################################################
+### Logarithms & Exponentials
+
+define ln(x) { return l(x) }
+define log(x) { return l(x)/l(A) }
+define logb(x,b) { return l(x)/l(b) }
+define pow(x,n) { return e(n*l(x)) }
+
+################################################################################
+### Trigonometry
+
+define rad2deg(x) { return x*(45/a(1)) }
+define deg2rad(x) { return x*(a(1)/45) }
+define dms2dd(d,m,s) { return d + (m/60) + (s/3600) }
+define cos(x) { return c(x) }
+define sin(x) { return s(x) }
+define tan(x) { return s(x)/c(x) }
+define sec(x) { return 1/c(x) }
+define csc(x) { return 1/s(x) }
+define cot(x) { return c(x)/s(x) }
+define arccos(x) {
+    pi = 4*a(1)
+    if(x == 1) return 0
+    if(x == -1) return pi 
+    return pi/2 - a(x/sqrt(1-(x^2)))
+}
+define arcsin(x) { 
+    pi = 4*a(1)
+    if(x == 1) return pi/2
+    if(x == -1) return -pi/2
+    return sgn(x)*a(sqrt((1/(1-(x^2)))-1))
+}
+define arctan(x) { return a(x) }
+define atan2(y,x) { 
+    pi = 4*a(1)
+    if(x == 0) return sgn(y)*pi/2
+    if(x < 0) {
+        if(y < 0)
+            return a(y/x)-pi
+        return a(y/x)+pi
+    }
+    return a(y/x)
+}
+define arcsec(x) { return arccos(1/x) }
+define arccsc(x) { return arcsin(1/x) }
+define arccot(x) { return (4*a(1))/2-a(x) }
+
+define cosh(x) { return (e(x)+e(-x))/2 }
+define sinh(x) { return (e(x)-e(-x))/2 }
+define tanh(x) { return sinh(x)/cosh(x) }
+define sech(x) { return 1/cosh(x) }
+define csch(x) { return 1/sinh(x) }
+define coth(x) { return 1/tanh(x) }
+
+define arcosh(x) { return ln(x+sqrt(x^2-1)) }
+define arsinh(x) { return ln(x+sqrt(x^2+1)) }
+define artanh(x) { return (1/2)*ln((1+x)/(1-x))}
+define arsech(x) { return arcosh(1/x) }
+define arcsch(x) { return arsinh(1/x) }
+define arcoth(x) { return artanh(1/x) }
+
+################################################################################
+### Combinatorics
+
+define factorial(n) {
+    auto i
+    if((n<0) || (int(n)!= n)) {
+        print "Error: factorials defined for positive integers only\n"
+        return
+    }
+    factorial[0] = factorial[1] = 1
+    for(i=n; factorial[i]==0; --i) {}
+    for(++i; i<=n; ++i)
+        factorial[i] = i*factorial[i-1]
+    return factorial[n]
+}
+
+# Return nPk, the number of ways to permute k of n objects
+define pick(n,k) {
+    auto i, r
+    if((n<0) || (k<0) || (int(n)!=n) || (int(k)!=k) ) {
+        print "Error: permutations defined for positive integers only\n"
+        return
+    }
+    r = n - k
+    for(i=1; n>r; --n)
+        i *= n
+    return i
+}
+
+# Return nCk, the number of ways to choose k of n objects
+define choose(n,k) {
+    if((n<0) || (k<0) || (int(n)!=n) || (int(k)!=k)) {
+        print "Error: combinations defined for positive integers only\n"
+        return
+    }
+    if(n*(n+1)/2 + k >= 2^24) {
+        return int(factorial(n)/(factorial(n-k)*factorial(k)))
+    }
+    return choose_(n,k)
+}
+
+# Dynamic, recursive helper function for choose(n,k)
+define choose_(n,k) {
+    auto i
+    if((k==0) || (k==n))
+        return 1
+    i = n*(n+1)/2 + k
+    if(choose[i] != 0)
+        return choose[i]
+    choose[i] = choose_(n-1,k) + choose_(n-1,k-1)
+    return choose[i]
+}
+
+# Return the nth Fibonacci number
+define fibonacci(n) {
+    auto i
+    if((n<1) || (int(n)!=n)) {
+        print "Error: Fibonacci numbers indexed by positive integers\n"
+        return
+    }
+    fibonacci[1] = fibonacci[2] = 1
+    for(i=n; fibonacci[i]==0; --i) {}
+    for(++i; i<=n; ++i)
+        fibonacci[i] = fibonacci[i-1] + fibonacci[i-2]
+    return fibonacci[n]
+}
+
+# Return the number with continued fraction coefficients a[]
+define contfrac2obase(*a[]) { 
+    auto i, h[], k[]
+
+    h[0] = a[0]
+    k[0] = 1
+    h[1] = a[1]*h[0]+1
+    k[1] = a[1]
+    for(i=2; a[i]; i++) {
+        h[i] = a[i]*h[i-1]+h[i-2]
+        k[i] = a[i]*k[i-1]+k[i-2]
+    }
+    return h[i-1]/k[i-1]
+}
+
+################################################################################
+### Calculus
+
+# Returns the derivative of the (global) function f at x
+# using a finite central distance with eight points.
+define derivative(x) {
+    auto h, d
+    h = A^-scale
+    scale *= 2
+    d = (3*f(x-4*h)-32*f(x-3*h)+168*f(x-2*h)-672*f(x-h)+672*f(x+h)-168*f(x+2*h)+32*f(x+3*h)-3*f(x+4*h))/(840*h)
+    scale /= 2
+    return d/1
+}
+
+# Returns the zero of the (global) function f
+# that results from iteratively applying Newton's Method 
+# with initial parameter x.
+define newton(x) { 
+    auto y
+    y = f(x)
+    if (y/9)
+        return newton(x - y/derivative(x))
+    return x
+}
+
+# Returns the value of the definite integral 
+# of the (global) function f between a and b.
+define integral(a,b) {
+    auto i
+    scale *= 2
+    i = integral_(a,b,0)
+    scale /= 2
+    return i/1
+}
+
+# Recursive helper function for integral(a,b)
+define integral_(a,b,try) {
+    auto left, midpoint, right
+    midpoint = (a+b)/2
+    left = boole_(a,midpoint)
+    right = boole_(midpoint,b)
+    if(abs(left + right - try) < e(-l(A) * scale/2))
+        return left + right
+    return integral_(a,midpoint,left) + integral_(midpoint,b,right)
+}
+
+# Boole's rule for approximate integration
+define boole_(a,b) {
+    auto h
+    h = (b-a)/4
+    return 2*(7*f(a)+32*f(a+h)+12*f(a+2*h)+32*f(a+3*h)+7*f(b))*h/45
+}
+
+
+################################################################################
+### Number Theory
+
+# Returns +/- the greatest-common-divisor of m and n per scale;
+# quotients must be whole numbers but remainders may be rational
+define gcd(m,n) {
+    auto r 
+    r = m-int(m/n)*n
+    if(r) return gcd(n,r)
+    return n
+}
+
+# Returns the least-common-multiple of m and n per scale
+define lcm(m,n) {
+    return m*(n/gcd(m,n))
+}
+
+# Returns the nth prime integer
+define prime(n) {
+    auto i, s 
+    prime[1] = 2
+    prime[2] = 3
+    for(i=n; prime[i]==0; --i) {}
+    return prime_(i,n)
+}
+
+# Fill in the array of prime numbers prime[]
+# beyond index j, up through k, and return prime[k]
+define prime_(j,k) {
+    auto i, n, flag, p, s
+    s = scale
+    scale = 0
+    for(i=j+1; i<=k; ++i) {
+        flag = 0;
+        for(n=prime[i-1]+2; !flag; n=n+2) {
+            flag = 1
+            for(p=1; p<i; ++p) {
+                if(n % prime[p] == 0) {flag=0; break;}
+            }
+            if(flag) {prime[i]=n; break;}
+        }
+    }
+    scale = s
+    return prime[k]
+}
+
+# Minkowski's question-mark function
+define minkowski(x) {
+    auto i, j, a[], h[], k[], r
+
+    x/=1
+    if(x == int(x)) {return x}
+    if(x < 0) {return -minkowski(-x)}
+
+    r = x
+    a[0] = int(r)
+    h[0] = a[0]
+    k[0] = 1
+
+    r = 1/(r-a[0])
+    a[1] = int(r)
+    h[1] = a[1]*h[0]+1
+    k[1] = a[1]
+
+    for(i=2; x!=h[i-1]/k[i-1]; ++i) {
+        r = 1/(r-a[i-1])
+        a[i] = int(r)
+        h[i] = a[i]*h[i-1]+h[i-2]
+        k[i] = a[i]*k[i-1]+k[i-2]
+    }
+    
+    a[0] += 1/pow(2,a[1]-1)
+    for(j=2; j<i; ++j) {
+        a[j] += a[j-1]
+        a[0] += (sgn(intmod(j,2)-0.5))/(2^(a[j]-1))
+    }
+
+    return a[0]
+}
