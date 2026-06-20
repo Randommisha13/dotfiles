@@ -33,7 +33,7 @@ dir_color=220
 git_branch_color=129
 separator_color=236
 input_color=255
-error_color=94
+error_color=166
 venv_color=203
 dbox_color=145
 
@@ -110,7 +110,7 @@ local git_branch='%{${__git_branch_seq}%}$(__get_git_prompt)%{${__reset_seq}%}'
 
 PROMPT="${__separator_seq}\${(l.\$(tput cols)..${__separator_character}.)}%{${reset_color}%}
 ${user}:${dir} ${git_branch}${__reset_seq}
-> "
+ "
 
 RPROMPT="%{$(echotc UP 1)%}\$(__print_rprompt)%{$(echotc DOWN 1)%}"
 
