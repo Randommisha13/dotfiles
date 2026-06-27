@@ -4,6 +4,7 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
+alias difu='diff -u'
 alias sc-reboot-windows='systemctl reboot --boot-loader-entry="auto-windows"'
 
 #==============================================
