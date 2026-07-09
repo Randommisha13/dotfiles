@@ -6,6 +6,7 @@ alias grep='grep --color=auto'
 
 alias difu='diff -u'
 alias sc-reboot-windows='systemctl reboot --boot-loader-entry="auto-windows"'
+alias sc-reboot-uefi='systemctl reboot --firmware-setup'
 
 #==============================================
 # Functions
