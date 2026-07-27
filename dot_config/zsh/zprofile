@@ -32,23 +32,6 @@ fi
 #                                                                #
 ###             End Homebrew environment variables             ###
 
-## Create some directories in ${XDG_RUNTIME_DIR} for future use
-
-USER_RUNTIME_DIRS=(
-    "ssh-host-sockets"
-    "tmux-tmpdir"
-    "tmux-tmpdir-kitty"
-)
-for USER_DIR in "${USER_RUNTIME_DIRS[@]}"
-do
-    if [ ! -d "${XDG_RUNTIME_DIR}/${USER_DIR}" ]
-    then
-        mkdir "${XDG_RUNTIME_DIR}/${USER_DIR}"
-    fi
-done
-unset USER_RUNTIME_DIRS
-unset USER_DIR
-
 # I'm setting $PATH last to potentially override anything just for myself
 export PATH="${XDG_BIN_HOME}:${PATH}"
 
