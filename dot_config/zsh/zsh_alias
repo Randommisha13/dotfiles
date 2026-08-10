@@ -19,3 +19,25 @@ cdreal() {
         cd "$(realpath "${PWD}")"
     fi
 }
+
+tmux-change-tmpdir() {
+    local valid_tmpdirs
+    local new_tmpdir
+    local query
+    command -v "fzf" 2>/dev/null 1>/dev/null || {echo "fzf is not installed!"; exit 1}
+
+    valid_tmpdirs=(
+        "${XDG_RUNTIME_DIR}/tmux-tmpdir"
+        "${XDG_RUNTIME_DIR}/tmux-tmpdir-kitty"
+        "/tmp"
+    )
+
+    for dir in "${valid_tmpdirs[@]}"
+    do
+        query="${query}${dir}\n"
+    done
+
+    new_tmpdir="$(echo "${query}" | fzf)"
+
+    export TMUX_TMPDIR="${new_tmpdir}"
+}
