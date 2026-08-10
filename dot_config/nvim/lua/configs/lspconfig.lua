@@ -6,7 +6,7 @@ local servers = {
     "ltex-ls-plus",
     "pretty-php",
     "pyright",
-    "nil",
+    "nil_ls",
     "taplo",
 }
 vim.lsp.enable(servers)
