@@ -6,7 +6,13 @@ export OMZSH="${XDG_DATA_HOME}/oh-my-zsh"
 
 export ZSH_THEME="not-random"
 export ZSH_CUSTOM="${ZDOTDIR}/oh-my-zsh-custom"
-export ZSH_COMPDUMP="${XDG_CACHE_HOME}/zcompdump-${HOST}"
+
+if [[ -z "${CONTAINER_ID}" ]]
+then
+    export ZSH_COMPDUMP="${XDG_CACHE_HOME}/zcompdump-${HOST}"
+else
+    export ZSH_COMPDUMP="${XDG_CACHE_HOME}/zcompdump-${HOST}-${CONTAINER_ID}"
+fi
 
 #==============================================
 # oh-my-zsh module config
