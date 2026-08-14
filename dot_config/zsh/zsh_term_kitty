@@ -34,6 +34,11 @@ export plugins=(
     "tmux"
 )
 
+if [[ -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]]
+then
+    plugins+=("zsh-syntax-highlighting")
+fi
+
 source "${OMZSH}/oh-my-zsh.sh"
 
 #==============================================
