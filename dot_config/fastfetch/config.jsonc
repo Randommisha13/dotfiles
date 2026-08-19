@@ -103,7 +103,9 @@
         {
             "type": "localip",
             "key": "Local IP",
-            "keyColor": "blue"
+            "keyColor": "blue",
+            "showIpv6": true,
+            "showSpeed": true
         },
         "poweradapter"
     ]
