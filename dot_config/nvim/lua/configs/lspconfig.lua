@@ -10,7 +10,8 @@ local servers = {
     "taplo",
     "bashls",
     "emmylua_ls",
-    "systemd_lsp"
+    "systemd_lsp",
+    "clangd",
 }
 
 vim.lsp.enable(servers)
