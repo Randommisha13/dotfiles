@@ -8,6 +8,10 @@ alias difu='diff -u'
 alias sc-reboot-windows='systemctl reboot --boot-loader-entry="auto-windows"'
 alias sc-reboot-uefi='systemctl reboot --firmware-setup'
 
+alias :q="exit"
+alias q="exit"
+alias quit="exit"
+
 #==============================================
 # Functions
 #==============================================
