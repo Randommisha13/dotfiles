@@ -36,6 +36,7 @@ input_color=255
 error_color=166
 venv_color=203
 dbox_color=145
+ssh_color=250
 
 if [[ -n "${CONTAINER_ID}" ]]
 then
@@ -75,6 +76,7 @@ local __reset_seq="$(tput sgr0)"
 # behavior
 local __venv_seq="${FG[${venv_color}]}"
 local __dbox_seq="${FG[${dbox_color}]}"
+local __ssh_seq="${FG[${ssh_color}]}"
 local __separator_seq="${FG[${separator_color}]}"
 
 local __separator_character="─"
@@ -85,11 +87,19 @@ __print_rprompt() {
     local rprompt=""
     if [[ -n "${CONTAINER_ID}" ]]
     then
-       local rprompt=" [ : %{${__dbox_seq}%}${CONTAINER_ID}%{${reset_color}%}]${rprompt}" 
+        local rprompt=" [ : %{${__dbox_seq}%}${CONTAINER_ID}%{${reset_color}%}]${rprompt}" 
     fi
     if [[ -n "${VIRTUAL_ENV_PROMPT}" ]]
     then
-       local rprompt=" [󰌠 : %{${__venv_seq}%}${VIRTUAL_ENV_PROMPT}%{${reset_color}%}]${rprompt}" 
+        local rprompt=" [󰌠 : %{${__venv_seq}%}${VIRTUAL_ENV_PROMPT}%{${reset_color}%}]${rprompt}" 
+    fi
+    if [[ -n "${SSH_CLIENT}" ]]
+    then
+        local SSH_CLIENT_ADDR="$(echo "${SSH_CLIENT}" \
+            | cut --delimiter=" " --fields=1
+        )"
+        local rprompt=" [󰢩 : %{${__ssh_seq}%}${SSH_CLIENT_ADDR}%{${reset_color}%}]${rprompt}" 
+        unset SSH_CLIENT_ADDR
     fi
     echo -ne "${rprompt}"
 }

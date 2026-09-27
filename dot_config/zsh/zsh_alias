@@ -24,6 +24,23 @@ cdreal() {
     fi
 }
 
+tmpgrp() {
+    if [[ "$#" != "1" ]]
+    then
+        echo "Invalid arguments! You need to specify only a group" >&2
+        return 1
+    fi
+
+    tmp_group="${1}"
+    current_user="$(id -un)"
+
+    sudo bash -c "
+        usermod -aG \"${tmp_group}\" \"${current_user}\";
+        su - \"${current_user}\";
+        usermod -rG \"${tmp_group}\" \"${current_user}\"
+    "
+}
+
 tmux-change-tmpdir() {
     local valid_tmpdirs
     local new_tmpdir
