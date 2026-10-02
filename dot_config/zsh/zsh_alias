@@ -4,6 +4,8 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
+alias rlw="rlwrap --history-filename /dev/null --histsize 0 --no-warnings"
+
 alias difu='diff -u'
 alias sc-reboot-windows='systemctl reboot --boot-loader-entry="auto-windows"'
 alias sc-reboot-uefi='systemctl reboot --firmware-setup'
@@ -22,6 +24,10 @@ cdreal() {
     else
         cd "$(realpath "${PWD}")"
     fi
+}
+
+qcd() {
+    cd "$(fd --type=directory "$@" | fzf)" 
 }
 
 tmpgrp() {
