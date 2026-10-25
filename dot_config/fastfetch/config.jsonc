@@ -59,19 +59,26 @@
         "break",
         {
             "type": "kernel",
-            "keyWidth": 11,
-            "keyColor": "cyan"
-        },
-        {
-            "type": "command",
-            "text": "python ~/.config/fastfetch/systemctl-unit-stats.py",
-            "key": "systemd",
-            "keyWidth": 11,
+            "keyWidth": 12,
             "keyColor": "cyan"
         },
         {
             "type": "packages",
-            "keyWidth": 11,
+            "keyWidth": 12,
+            "keyColor": "cyan"
+        },
+        {
+            "type": "command",
+            "text": "python ~/.config/fastfetch/systemctl-unit-stats.py --system",
+            "key": "sd-system",
+            "keyWidth": 12,
+            "keyColor": "cyan"
+        },
+        {
+            "type": "command",
+            "text": "python ~/.config/fastfetch/systemctl-unit-stats.py --user",
+            "key": "sd-user",
+            "keyWidth": 12,
             "keyColor": "cyan"
         },
         "break",
