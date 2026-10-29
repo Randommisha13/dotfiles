@@ -34,7 +34,7 @@
             "type": "command",
             "text": "date",
             "key": "Time",
-            "keyWidth": 9
+            "keyWidth": 10
         },
         {
             "type": "battery",
