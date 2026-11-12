@@ -21,6 +21,10 @@ export TIMER_PRECISION=2
 export TIMER_THRESHOLD=1
 export TIMER_FORMAT='[%d]'
 
+# Feature from an unmerged PR:
+# https://github.com/ohmyzsh/ohmyzsh/pull/13695
+export ZSH_THEME_SYSTEMD_PRIVILEGE_TOOL="builtin-polkit"
+
 export plugins=(
     "docker"
     "fzf"
