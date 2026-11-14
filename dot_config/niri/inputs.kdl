@@ -1,0 +1,31 @@
+input {
+    keyboard {
+        xkb {
+            layout "us,ru"
+            options "grp:win_space_toggle,grp:alt_shift_toggle"
+        }
+
+        numlock
+    }
+
+    touchpad {
+        drag-lock
+        dwt
+        middle-emulation
+        natural-scroll
+        scroll-method "two-finger"
+        tap
+        // accel-profile "flat"
+        // accel-speed 0.2
+    }
+
+    mouse {
+        accel-profile "flat"
+        // accel-speed 0.2
+        // natural-scroll
+        // scroll-method "no-scroll"
+    }
+
+    mod-key "Super"
+    mod-key-nested "Alt"
+}

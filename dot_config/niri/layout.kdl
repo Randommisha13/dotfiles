@@ -1,0 +1,50 @@
+layout {
+    gaps 2
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 1
+        active-color "#ffc400ff"
+        inactive-color "#606060ff"
+    }
+
+    border {
+        off
+        width 0
+    }
+
+    shadow {
+        off
+    }
+
+    tab-indicator {
+        on
+        hide-when-single-tab
+        place-within-column
+        width 2
+        length total-proportion=0.66667
+        corner-radius 3
+        active-color "#ffc400ff"
+        inactive-color "#181818ff"
+    }
+
+    background-color "#181818ff"
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+prefer-no-csd
+
+animations {
+}
+
