@@ -23,7 +23,7 @@ export TIMER_FORMAT='[%d]'
 
 # Feature from an unmerged PR:
 # https://github.com/ohmyzsh/ohmyzsh/pull/13695
-export ZSH_THEME_SYSTEMD_PRIVILEGE_TOOL="builtin-polkit"
+ZSH_SYSTEMD_SUDO=""
 
 export plugins=(
     "docker"
