@@ -21,9 +21,7 @@ export TIMER_PRECISION=2
 export TIMER_THRESHOLD=1
 export TIMER_FORMAT='[%d]'
 
-# Feature from an unmerged PR:
-# https://github.com/ohmyzsh/ohmyzsh/pull/13695
-ZSH_SYSTEMD_SUDO=""
+export ZSH_SYSTEMD_SUDO=""
 
 export plugins=(
     "docker"
